@@ -48,7 +48,31 @@ jobs.change(()=>{
     }
 });
 
-let activities = $(".activities");
+let activities = $(".activities :input");
+let lastchecked;
+activities.click(()=>{
+    activities.each(function(index, e){
+        activities.each(function(index, x){
+            if($(e).attr("data-day-and-time") == $(x).attr("data-day-and-time") && $(e).attr("name") != $(x).attr("name")){
+                if($(e).is(":checked")){
+                    $(x).parent().toggleClass("striked", true);
+                    $(x).prop("disabled", true);
+                }
+                else if($(x).is(":checked")){
+                    $(e).parent().toggleClass("striked", true);
+                    $(e).prop("disabled", true);
+                }
+                if(!$(e).is(":checked") && !$(e).prop("disabled")){
+                    $(x).parent().toggleClass("striked", false);
+                    $(x).prop("disabled", false);
+                }
+                else if(!$(x).is(":checked") && !$(x).prop("disabled")){
+                    $(e).parent().toggleClass("striked", false);
+                    $(e).prop("disabled", false);
+                }
+            }
+        });
+});
 
 $("#credit-card").show();
 $("#paypal").hide();

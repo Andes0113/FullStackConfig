@@ -197,3 +197,7 @@ option {
 		clear: both;
 	}
 }
+
+.striked {
+	text-decoration: line-through;
+}
