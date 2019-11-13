@@ -2,12 +2,94 @@ $("#name").focus()
 
 const emaili = $("#mail");
 let jobs = $("#title");
-emaili.keyup(checkEmail);
-function checkEmail() {
-    let x = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emaili.val());
-    console.log(x);
+
+$(".name-warn").hide();
+$(".email-warn").hide();
+$(".cbox-warn").hide();
+$(".ccard-warn1").hide();
+$(".ccard-warn").hide();
+$(".zip-warn").hide();
+$(".cvv-warn").hide();
+
+
+$("#name").keyup(ncheck);
+function ncheck(){
+    let regparse_name = /^./;
+    let x = regparse_name.test($("#name").val())
+    if(!x){
+        $(".name-warn").show();
+    }else{
+        $(".name-warn").hide();
+    }
     return x;
 }
+$("#cc-num").keyup(cccheck);
+function cccheck(){
+    if($("#payment").val() == "Credit Card"){
+        let regparse_cc = /^\d{13,16}$/;
+        let regparse_cc1 = /\D/;
+        let x = regparse_cc.test($("#cc-num").val());
+        let y = regparse_cc1.test($("#cc-num").val());
+        console.log(y);
+        if(y){
+            $(".ccard-warn1").show();
+        }else{
+            $(".ccard-warn1").hide();
+            if(!x){
+                $(".ccard-warn").show();
+            }else{
+                $(".ccard-warn").hide();
+            }
+        }
+        return x;
+    }
+    return true;
+}
+$("#zip").keyup(zipcheck);
+function zipcheck(){
+    if($("#payment").val() == "Credit Card"){
+        let regparse_zip = /^\d{5}$/;
+        let x = regparse_zip.test($("#zip").val());
+        if(!x){
+            $(".zip-warn").show();
+        }else{
+            $(".zip-warn").hide();
+        }
+        return x;
+    }
+    return true;
+};
+$("#cvv").keyup(cvvcheck);
+function cvvcheck(){
+    if($("#payment").val() == "Credit Card"){
+        let regparse_cvv = /^\d{3}$/;
+        let x = regparse_cvv.test($("#cvv").val())
+        if(!x){
+            $(".cvv-warn").show();
+        }else{
+            $(".cvv-warn").hide();
+        }
+        return x;
+    }
+    return true;
+}
+emaili.keyup(echeck);
+function echeck(){
+    let regparse_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let x = regparse_email.test(emaili.val());
+    if(!x){
+        $(".email-warn").show();
+    }else{
+        $(".email-warn").hide();
+    }
+    return x;
+};
+$("#subbut").click(function(){
+    console.log(cccheck());
+    if(ncheck()&&cccheck()&&zipcheck()&&cvvcheck()&&echeck()&&checkChecked()){
+        window.location.replace("https://rlv.zcache.com/big_smile_happy_face_drawer_knob_srf-r95f84f7818be4b3aa45a36488e23c00d_zp2d5_540.jpg?rlvnet=1");
+    }
+});
 
 
 let designinput = $("#design");
@@ -47,7 +129,7 @@ jobs.change(()=>{
         $("#other-title").hide();
     }
 });
-
+$(".cost").hide();
 let activities = $(".activities :input");
 let lastchecked;
 activities.click(()=>{
@@ -72,9 +154,37 @@ activities.click(()=>{
                 }
             }
         });
+    });
+    getCost();
+    checkChecked();
 });
+function checkChecked(){
+    let checked = false;
+    activities.each(function(index,e){
+        if($(e).is(":checked")){
+            checked = true;
+        }
+    });
+    if(checked){
+        $(".cbox-warn").hide();
+    }else{
+        $(".cbox-warn").show();
+    }
+    return checked;
+}
+function getCost(){
+    let sum = 0;
+    activities.each(function(index, e){
+        if($(e).is(":checked")){
+            sum+= parseInt($(e).attr("data-cost").substring(1));
+        }
+    });
+    $(".cost").html("Total Cost: $" + sum);
+    $(".cost").show();
+    console.log(sum);
+}
 
-$("#credit-card").show();
+$("#credit-card").hide();
 $("#paypal").hide();
 $("#bitcoin").hide();
 $("#payment").change(()=>{
@@ -94,24 +204,3 @@ $("#payment").change(()=>{
         $("#bitcoin").show();
     }
 });
-
-// function showOrHideTip(show, element) {
-//     // show element when show is true, hide when false
-//     if (show) {
-//       element.style.display = "inherit";
-//     } else {
-//       element.style.display = "none";
-//     }
-//   }
-
-// function createListener(validator) {
-//     return e => {
-//       const text =$(this).val();
-//       const valid = validator(text);
-//       const showTip = text !== "" && !valid;
-//       const tooltip = $(this).next();
-//       showOrHideTip(showTip, tooltip);
-//     };
-//   }
-
-// emaili.on("input", createListener(checkEmail));

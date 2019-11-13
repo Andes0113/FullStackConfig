@@ -22,10 +22,10 @@
         
         <label for="name">Name:</label>
         <input type="text" id="name" name="user-name">
-        
+        <p class = "name-warn">Name Field can't be blank</p>
         <label for="mail">Email:</label>
         <input type="email" id="mail" name="user-email">
-        
+        <p class = "email-warn">Not a valid email</p>
         <label for="title">Job Role</label>
         <select id="title" name="user-title">
           <option value="full-stack js developer">Full Stack JavaScript Developer</option>
@@ -103,8 +103,9 @@
           <input type="checkbox" name="npm" data-day-and-time="Wednesday-T13:00:00-T16:00:00" data-cost="$100"> 
           npm Workshop — Wednesday 1pm-4pm, $100
         </label>
-                  	
+        <p class = "cbox-warn">Must register for an activity</p>
       </fieldset>
+      <p class = "cost">0</p>
       <fieldset>
         <legend>Payment Info</legend>
 
@@ -132,6 +133,10 @@
             <label for="cvv">CVV:</label>
             <input id="cvv" name="user-cvv" type="text"> 
           </div>
+          <p class = "ccard-warn1">Credit card must be a number</p>
+          <p class = "ccard-warn">Credit card number must 13 - 16 digits long</p>
+          <p class = "zip-warn">Zip code must be 5 digits long</p>
+          <p class = "cvv-warn">CVV must be 3 digits long</p>
 
           <label for="exp-month">Expiration Date:</label>
           <select id="exp-month" name="user-exp-month">
@@ -155,7 +160,8 @@
             <option value="2018">2021</option>
             <option value="2019">2022</option>
             <option value="2020">2023</option>        		          
-          </select> 	                  	         
+          </select> 	     
+             	         
         </div>
 
         <div id="paypal" class="paypal">
@@ -165,10 +171,9 @@
         <div id="bitcoin" class="bitcoin">
         	<p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
         </div>                  
-
       </fieldset>        
         
-      <button type="submit">Register</button>
+      <button type = "button" id = "subbut">Register</button>
       
     </form>
 

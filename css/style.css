@@ -117,6 +117,10 @@ button {
 	transition: all 0.5s;
 }
 
+p{
+	color: red;
+}
+
 button:hover {
 	background: #6F9DDC;
 }
