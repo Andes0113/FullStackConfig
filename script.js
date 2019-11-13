@@ -3,6 +3,8 @@ $("#name").focus()
 const emaili = $("#mail");
 let jobs = $("#title");
 
+//warnings for incorrect inputs
+
 $(".name-warn").hide();
 $(".email-warn").hide();
 $(".cbox-warn").hide();
@@ -11,7 +13,7 @@ $(".ccard-warn").hide();
 $(".zip-warn").hide();
 $(".cvv-warn").hide();
 
-
+//warning for name input
 $("#name").keyup(ncheck);
 function ncheck(){
     let regparse_name = /^./;
@@ -23,6 +25,7 @@ function ncheck(){
     }
     return x;
 }
+//warning for credit card number
 $("#cc-num").keyup(cccheck);
 function cccheck(){
     if($("#payment").val() == "Credit Card"){
@@ -45,6 +48,7 @@ function cccheck(){
     }
     return true;
 }
+//warning for zip code
 $("#zip").keyup(zipcheck);
 function zipcheck(){
     if($("#payment").val() == "Credit Card"){
@@ -59,6 +63,7 @@ function zipcheck(){
     }
     return true;
 };
+//warning for cvv
 $("#cvv").keyup(cvvcheck);
 function cvvcheck(){
     if($("#payment").val() == "Credit Card"){
@@ -73,6 +78,7 @@ function cvvcheck(){
     }
     return true;
 }
+//warning for email
 emaili.keyup(echeck);
 function echeck(){
     let regparse_email = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -84,6 +90,7 @@ function echeck(){
     }
     return x;
 };
+//checks if all inputs are correct and then confirms form submittion
 $("#subbut").click(function(){
     console.log(cccheck());
     if(ncheck()&&cccheck()&&zipcheck()&&cvvcheck()&&echeck()&&checkChecked()){
@@ -91,7 +98,7 @@ $("#subbut").click(function(){
     }
 });
 
-
+//Shirt options
 let designinput = $("#design");
 let shirtcolorlist = $("#colors-js-puns");
 let shirtcolors = $("#color");
@@ -121,6 +128,8 @@ designinput.change(()=>{
         shirtcolorlist.hide();
     }
 });
+
+//other job input
 $("#other-title").hide();
 jobs.change(()=>{
     if(jobs.val() == "other"){
@@ -129,12 +138,15 @@ jobs.change(()=>{
         $("#other-title").hide();
     }
 });
+
+//activities checkboxes
 $(".cost").hide();
 let activities = $(".activities :input");
 let lastchecked;
 activities.click(()=>{
     activities.each(function(index, e){
         activities.each(function(index, x){
+            //checks if one is checked then disables the other
             if($(e).attr("data-day-and-time") == $(x).attr("data-day-and-time") && $(e).attr("name") != $(x).attr("name")){
                 if($(e).is(":checked")){
                     $(x).parent().toggleClass("striked", true);
@@ -158,6 +170,8 @@ activities.click(()=>{
     getCost();
     checkChecked();
 });
+
+//checks to make sure an activity has been selected
 function checkChecked(){
     let checked = false;
     activities.each(function(index,e){
@@ -172,6 +186,7 @@ function checkChecked(){
     }
     return checked;
 }
+//adds up cost
 function getCost(){
     let sum = 0;
     activities.each(function(index, e){
@@ -184,6 +199,7 @@ function getCost(){
     console.log(sum);
 }
 
+//hides payment info that is not selected
 $("#credit-card").hide();
 $("#paypal").hide();
 $("#bitcoin").hide();
