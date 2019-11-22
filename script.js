@@ -200,7 +200,8 @@ function getCost(){
 }
 
 //hides payment info that is not selected
-$("#credit-card").hide();
+$("#credit-card").show();
+$("#payment").val("Credit Card");
 $("#paypal").hide();
 $("#bitcoin").hide();
 $("#payment").change(()=>{
